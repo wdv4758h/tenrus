@@ -16,3 +16,6 @@ serde_json = "0.7.4"        # JSON
 rustc-serialize = "0.3.19"  # base64
 openssl = "0.7.14"          # RSA
 openssl-sys = "0.7.14"      # RSA
+
+[profile.release]
+lto = true
