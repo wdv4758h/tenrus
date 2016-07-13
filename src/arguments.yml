@@ -1,0 +1,27 @@
+name: tenrus
+version: 0.1.0
+about: Travis Encryption in Rust
+author: Chiu-Hsiang Hsu <wdv4758h@gmail.com>
+
+settings:
+    - ArgRequiredElseHelp
+
+args:
+    - repo:
+        help: repository slug (USERNAME/PROJECT) e.g. "wdv4758h/tenrus"
+        index: 1
+        takes_value: true
+        multiple: false
+        value_names:
+            - repo
+        requires:
+            - data
+    - data:
+        help: data to encrypt
+        index: 2
+        takes_value: true
+        multiple: false
+        value_names:
+            - data
+        requires:
+            - repo

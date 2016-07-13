@@ -2,5 +2,17 @@
 name = "tenrus"
 version = "0.1.0"
 authors = ["Chiu-Hsiang Hsu <wdv4758h@gmail.com>"]
+license = "AGPL-3.0"
+readme = "README.rst"
+description = "Travis Encryption in Rust"
+repository = "https://github.com/wdv4758h/tenrus/"
+keywords = ["travis", "encryption"]
 
 [dependencies]
+clap = { version = "2.9.1", features = ["yaml"] }   # CLI arguments
+hyper = "0.9"               # HTTP/HTTPS client
+serde = "0.7.14"            # JSON
+serde_json = "0.7.4"        # JSON
+rustc-serialize = "0.3.19"  # base64
+openssl = "0.7.14"          # RSA
+openssl-sys = "0.7.14"      # RSA
