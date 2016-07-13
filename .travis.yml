@@ -1,0 +1,79 @@
+language: rust
+cache: cargo
+
+env:
+  global:
+    # This will be part of the release tarball
+    - PROJECT_NAME=tenrus
+    - MAKE_DEB=yes
+    - DEB_MAINTAINER="Chiu-Hsiang Hsu <wdv4758h@gmail.com>"
+    - DEB_DESCRIPTION="Travis Encryption in Rust"
+
+# AFAICT There are a few ways to set up the build jobs. This one is not the DRYest but I feel is the
+# easiest to reason about.
+# NOTE Make *sure* you don't remove a reference (&foo) if you are going to dereference it (*foo)
+matrix:
+  include:
+    # Stable channel
+    - os: osx
+      rust: stable
+      env: TARGET=i686-apple-darwin
+    - os: linux
+      rust: stable
+      env: TARGET=i686-unknown-linux-gnu
+      addons:
+        apt:
+          packages: &i686_unknown_linux_gnu
+            # Cross compiler and cross compiled C libraries
+            - gcc-multilib
+            - libssl-dev:i386
+    - os: osx
+      rust: stable
+      env: TARGET=x86_64-apple-darwin
+    - os: linux
+      rust: stable
+      env: TARGET=x86_64-unknown-linux-gnu
+
+before_install:
+  - export PATH="$PATH:$HOME/.cargo/bin"
+
+install:
+  - bash ci/install.sh
+
+script:
+  - bash ci/script.sh
+
+before_deploy:
+  - bash ci/before_deploy.sh
+
+deploy:
+  provider: releases
+  # - Go to 'https://github.com/settings/tokens/new' and generate a Token with only the
+  # `public_repo` scope enabled
+  # - Call `travis encrypt $github_token` where $github_token is the token you got in the previous
+  # step and `travis` is the official Travis CI gem (see https://rubygems.org/gems/travis/)
+  # - Enter the "encrypted value" below
+  api_key:
+    secure: bteVFMRPEjiNSvvanPQ5maWWsI19FLvxIbK1IjUnH9610kdTVu2C7HAy9G4pdRB+/RWXrI4YA5Ir74wlgmEBvHc4596j7EkeLDx+sRk13YexdA62iTZWNKcbn99GOeIqjRlfcTIbSO/RPNWc3IcY4IFk/1wVYEKl08cW8kYPSSTj1GaOgutT4vzCTZXfJ3ejqJ0rLhyipkgOhmTrlJYKj/nWgQBvnj22BZgqEtJp9XLP2+FJeI9jWHt2xiuf6JA7PhHOBZNw9jr4xVnDRWuHMSp/Uds4aS8i27G/sf2M0o/QFsm9UCQ7MDuZ83qCKrzp1J9D8zMN51tO25xJaN2u7QTBz9rF4Vq+2ETNJbRBwdjS7uOxWrUhTACLVgbZrhn9sh7H6DZbT+FYdlggKmKAwAiVfQsgmHNoB104VqAVHmzoKI/4zwNLBh2X6kEVZUqJ8kVII54rF253Emd+AfyuLqfcDLQ3J4T6CljY9UjShJv/nNN2XFtmY2iNo98EaLlXJINGgWInVifprEd/vMwQJcGhC36YtZkYUX/42f8eYW4hzGZ71lJUmb/QAR+Oq7V9WekGtPUXCOO2V262TT9kq2WEzTSLQGvsmAXj0KwjIt9tAhyGxf94GoJO0bFap+GUsDl5051ux345HitylfkKwU+bazVkNzEPk9moI/YEDow=
+  file_glob: true
+  file: ${PROJECT_NAME}-${TRAVIS_TAG}-${TARGET}.*
+  # don't delete the artifacts from previous phases
+  skip_cleanup: true
+  # deploy when a new tag is pushed
+  on:
+    # channel to use to produce the release artifacts
+    # NOTE make sure you only release *once* per target
+    condition: $TRAVIS_RUST_VERSION = stable
+    tags: true
+
+branches:
+  only:
+    # Pushes and PR to the master branch
+    - master
+    # IMPORTANT Ruby regex to match tags. Required, or travis won't trigger deploys when a new tag
+    # is pushed. This regex matches semantic versions like v1.2.3-rc4+2016.02.22
+    - /^v\d+\.\d+\.\d+.*$/
+
+notifications:
+  email:
+    on_success: never
