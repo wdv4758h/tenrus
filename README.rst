@@ -2,6 +2,14 @@
 tenrus - Travis Encryption in Rust
 ========================================
 
+Travis CI `says <https://docs.travis-ci.com/user/environment-variables/#Encrypting-Variables-Using-a-Public-Key>`_
+, "you can use `travis <https://github.com/travis-ci/travis.rb>`_
+to encrypt your secret and put it at ``.travis.yml`` ".
+
+Here is a alternative to ``travis encrypt`` .
+
+(This project's ``.travis.yml`` has a token encrypted by itself :P)
+
 
 .. contents:: Table of Contents
 
