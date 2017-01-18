@@ -36,10 +36,10 @@ Download Prebuilt Binary
 .. code-block:: sh
 
     # by curl
-    $ curl -O -J -L https://github.com/wdv4758h/tenrus/releases/download/v0.1.0/tenrus-v0.1.0-x86_64-unknown-linux-gnu.tar.gz
+    $ curl -O -J -L https://github.com/wdv4758h/tenrus/releases/download/v0.1.1/tenrus-v0.1.1-x86_64-unknown-linux-gnu.tar.gz
 
     # by wget
-    $ wget https://github.com/wdv4758h/tenrus/releases/download/v0.1.0/tenrus-v0.1.0-x86_64-unknown-linux-gnu.tar.gz
+    $ wget https://github.com/wdv4758h/tenrus/releases/download/v0.1.1/tenrus-v0.1.1-x86_64-unknown-linux-gnu.tar.gz
 
 
 
@@ -49,7 +49,7 @@ Usage
 .. code-block:: sh
 
     $ tenrus
-    tenrus 0.1.0
+    tenrus 0.1.1
     Chiu-Hsiang Hsu <wdv4758h@gmail.com>
     Travis Encryption in Rust
 
@@ -83,9 +83,9 @@ x86_64, Linux (build on Arch Linux)
 +----------+---------+------------+--------------+-----------+
 | Filename | Version | Stripped ? | Size (Bytes) | Size (MB) |
 +----------+---------+------------+--------------+-----------+
-| tenrus   | v0.1.0  | No         | 2843768      | 2.8M      |
+| tenrus   | v0.1.1  | No         | 4721512      | 4.6M      |
 +----------+---------+------------+--------------+-----------+
-| tenrus   | v0.1.0  | Yes        | 2159288      | 2.1M      |
+| tenrus   | v0.1.1  | Yes        | 2064344      | 2.0M      |
 +----------+---------+------------+--------------+-----------+
 
 
@@ -136,7 +136,7 @@ Developement
 Making Release
 ------------------------------
 
-1. update version in ``src/arguments.yml``
+1. update version in ``src/cli.yml``
 2. update version in ``Cargo.toml``
 3. update version in ``Cargo.lock``
 4. add git tag
@@ -149,6 +149,7 @@ Special Thanks
 * `rust-everywhere <https://github.com/japaric/rust-everywhere/>`_ for CI integration
 * `clap-rs <https://github.com/kbknapp/clap-rs>`_ for arguments parsing
 * `hyper <https://github.com/hyperium/hyper>`_ for HTTPS client
+* `hyper-native-tls <https://github.com/sfackler/hyper-native-tls>`_ for HTTPS implementation
 * `Serde <https://github.com/serde-rs/serde>`_ for serialization
 * `rustc-serialize <https://github.com/rust-lang-nursery/rustc-serialize>`_ for serialization
 * `OpenSSL <https://www.openssl.org/>`_ for encryption
