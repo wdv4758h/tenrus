@@ -7,15 +7,13 @@ readme = "README.rst"
 description = "Travis Encryption in Rust"
 repository = "https://github.com/wdv4758h/tenrus/"
 keywords = ["travis", "encryption"]
+edition = "2018"
 
 [dependencies]
-clap = { version = "2.20.0", features = ["yaml"] }   # CLI arguments
-hyper = "0.10.0"            # HTTP client
-hyper-native-tls = "0.2.1"  # HTTPS implementation of hyper
-serde = "0.8.22"            # JSON
-serde_json = "0.8.5"        # JSON
+clap = { version = "2.33.0", features = ["yaml"] }   # CLI arguments
 rustc-serialize = "0.3.22"  # base64
-openssl = "0.9.6"           # RSA
+openssl = "0.10.20"         # RSA
+reqwest = "0.9.15"          # HTTPS client
 
 [profile.release]
 lto = true
