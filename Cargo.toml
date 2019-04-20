@@ -11,7 +11,7 @@ edition = "2018"
 
 [dependencies]
 clap = { version = "2.33.0", features = ["yaml"] }   # CLI arguments
-rustc-serialize = "0.3.22"  # base64
+base64 = "0.10.1"           # base64
 openssl = "0.10.20"         # RSA
 reqwest = "0.9.15"          # HTTPS client
 

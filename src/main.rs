@@ -3,7 +3,7 @@ extern crate clap;              // CLI arguments
 
 use std::collections::HashMap;
 use clap::App;
-use rustc_serialize::base64::{ToBase64, STANDARD};
+use base64;
 use openssl::rsa::{Rsa, Padding};
 
 
@@ -32,7 +32,7 @@ fn encrypt(repo: &str, data: &str) -> String {
     let _ = rsa.public_encrypt(data.as_bytes(),
                                &mut result,
                                Padding::PKCS1);
-    result.to_base64(STANDARD)
+    base64::encode(&result)
 }
 
 
